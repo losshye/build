@@ -153,7 +153,7 @@ build_kernel() {
            for patch_file in $KERNEL_DIR/patch/KernelSU.patch
 	do
            patch -p1 < "$patch_file"
-        done
+		   done
     fi
 
 	echo "-$VERSION" >>localversion
