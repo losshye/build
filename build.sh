@@ -77,7 +77,7 @@ clone() {
 			mkdir "${KERNEL_DIR}"/neutron-clang
 			cd "${KERNEL_DIR}"/neutron-clang || exit 1
 			bash <(curl -s "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman") -S
-			cd "${KERNEL_DIR}" || exit 1
+			cd ..
 		fi
 	fi
 
