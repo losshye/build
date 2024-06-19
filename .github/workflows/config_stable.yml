@@ -25,5 +25,6 @@ jobs:
         run: |
              git config --global --add safe.directory /__w/build/build
              git clone https://github.com/Eagle-Projekt/kernel_xiaomi_sm6225 -b r-oss kernel
+             cp -af patch kernel/patch
              cp -af build.sh kernel/ && cd kernel && chmod +x build.sh
              ./build.sh
