@@ -135,14 +135,13 @@ build_kernel() {
 	fi
 
 	tgm "
-<b>🛠 Sync Kernel Build Triggered</b>
+<b>🛠 SantuyKernel Build Triggered</b>
 <b>-----------------------------------------</b>
 <b>[*] Architecture</b>   : <code>$ARCH</code>
 <b>[*] Build Date</b>     : <code>$DATE</code>
 <b>[*] Device Name</b>    : <code>${MODEL} [${DEVICE}]</code>
 <b>[*] Defconfig</b>      : <code>$CONFIG</code>
-<b>[*] Kernel Name</b>    : <code>${VERSION}</code>
-<b>[*] Kernel Status</b>    : <code>${STATUS}</code>
+<b>[*] Kernel Name</b>    : <code>-SantuyKernel${VER}</code>
 <b>[*] Linux Version</b>  : <code>$(make kernelversion)</code>
 <b>[*] Compiler Name</b>  : <code>${KBUILD_COMPILER_STRING}</code>
 <b>-----------------------------------------</b>
