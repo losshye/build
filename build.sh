@@ -204,8 +204,8 @@ gen_zip() {
 	echo -e "\n\e[1;32m[*] Create a flashable zip! \e[0m"
 	mv "$KERNEL_DIR"/out/arch/arm64/boot/Image.gz AnyKernel3
 	cdir AnyKernel3
-	zip -r "$VERSION-$DEVICE-$STATUS-$ZDATE".zip . -x ".git*" -x "README.md" -x "*.zip"
-	ZIP_FINAL="$VERSION-$DEVICE-$STATUS-$ZDATE"
+	zip -r "$VERSION-$DEVICE-$ZDATE".zip . -x ".git*" -x "README.md" -x "*.zip"
+	ZIP_FINAL="$VERSION-$DEVICE-$ZDATE"
 	if [[ $SIGN == 1 ]]; then
 		## Sign the zip before sending it to telegram
 		echo -e "\n\e[1;32m[*] Sgining a zip! \e[0m"
