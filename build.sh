@@ -195,7 +195,7 @@ echo "-$VERSION" >> localversion
 	fi
 
 	msger -n "|| Cloning Anykernel ||"
-	git clone --depth=1 https://github.com/EagleProjekt/AnyKernel3 AnyKernel3
+	git clone --depth=1 https://github.com/Eagle-Projekt/AnyKernel3 AnyKernel3
 
 	if [ $BUILD_DTBO = 1 ]
 	then
