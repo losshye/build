@@ -22,10 +22,6 @@
 WORKDIR="$(pwd)"
 KERNEL="$WORKDIR/kernel"
 
-# Cloning Sources
-git clone --single-branch --depth=1 https://github.com/Asyanx/sea_kernel_xiaomi_sm6225 -b fog-r-oss-staging $KERNEL && cd $KERNEL
-export LOCALVERSION=🦈/shark
-
 # Bail out if script fails
 set -e
 
@@ -219,11 +215,11 @@ exports()
 	elif [ $COMPILER = "gcc" ]
 	then
 		KBUILD_COMPILER_STRING=$("$GCC64_DIR"/bin/aarch64-elf-gcc --version | head -n 1)
-		PATH=$GCC64_DIR/bin/::$PATH
+		PATH=$GCC64_DIR/bin/:$GCC32_DIR/usr/bin/:$PATH
 	fi
 
-	BOT_MSG_URL="https://api.telegram.org/bot$TG_TOKEN/sendMessage"
-	BOT_BUILD_URL="https://api.telegram.org/bot$TG_TOKEN/sendDocument"
+	BOT_MSG_URL="https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage"
+	BOT_BUILD_URL="https://api.telegram.org/bot$TELEGRAM_TOKEN/sendDocument"
 	PROCS=$(nproc --all)
 
 	export KBUILD_BUILD_USER ARCH SUBARCH PATH \
@@ -235,7 +231,7 @@ exports()
 
 tg_post_msg()
 {
-	curl -s -X POST "$BOT_MSG_URL" -d chat_id="$TG_CHAT" \
+	curl -s -X POST "$BOT_MSG_URL" -d chat_id="$TELEGRAM_CHAT" \
 	-d "disable_web_page_preview=true" \
 	-d "parse_mode=html" \
 	-d text="$1"
@@ -251,7 +247,7 @@ tg_post_build()
 
 	# Show the Checksum alongwith caption
 	curl --progress-bar -F document=@"$1" "$BOT_BUILD_URL" \
-	-F chat_id="$TG_CHAT"  \
+	-F chat_id="$TELEGRAM_CHAT"  \
 	-F "disable_web_page_preview=true" \
 	-F "parse_mode=Markdown" \
 	-F caption="$2 | *MD5 Checksum : *\`$MD5CHECK\`"
