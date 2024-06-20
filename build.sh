@@ -51,7 +51,6 @@ BASEDIR="$(basename "$KERNEL_DIR")"
 
 # PATCH KERNELSU & RELEASE VERSION
 KSU=1
-release=R1
 if [ $KSU = 1 ]
 then
 	curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
@@ -62,9 +61,9 @@ fi
 # The name of the Kernel, to name the ZIP
 if [ $KSU = 1 ]
 then
-   ZIPNAME="SantuyKernel-KSU-$release"
+   ZIPNAME="SantuyKernel-KSU-$VER"
 else
-    ZIPNAME="SantuyKernel-NONKSU-$release"
+    ZIPNAME="SantuyKernel-NONKSU-$VER"
 fi
 
 # Build Author
@@ -161,8 +160,6 @@ COMMIT_HEAD=$(git log --oneline -1)
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
 WAKTU=$(date +"%F-%S")
 
-# Version
-echo "-$VERSION" >> localversion
 #Now Its time for other stuffs like cloning, exporting, etc
 
  clone()
@@ -225,6 +222,9 @@ exports()
 	export KBUILD_BUILD_USER ARCH SUBARCH PATH \
 	       KBUILD_COMPILER_STRING BOT_MSG_URL \
 	       BOT_BUILD_URL PROCS
+
+        # Version
+        echo "-$VER" >> localversion
 }
 
 ##---------------------------------------------------------##
@@ -400,7 +400,7 @@ build_kernel
 
 if [ $LOG_DEBUG = "1" ]
 then
-	tg_post_build "error.log" "$CHATID" "Debug Mode Logs"
+	tg_post_build "error.log" "$TELEGRAM_CHAT" "Debug Mode Logs"
 fi
 
 ##----------------*****-----------------------------##
