@@ -1,4 +1,4 @@
-name: Kernel Stable
+name: Kernel Staging
 
 on:
   workflow_dispatch:
