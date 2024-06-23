@@ -1,0 +1,30 @@
+name: Kernel Stable
+
+on:
+  workflow_dispatch:
+    inputs:
+      toolchain:
+          description: 'Write toolchain name gcc/clang'
+          required: true
+env:
+  COMP: ${{ github.event.inputs.toolchain }}
+  TELEGRAM_TOKEN: ${{ secrets.TG_TOKEN }}
+  TELEGRAM_CHAT: ${{ secrets.TG_CHAT }}
+  VER: ${{ secrets.K_NAME }}
+  STATUS: ${{ secrets.K_STATUS }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/neutron-projects/docker-image:arch-neutron
+    steps:
+      - uses: actions/checkout@v3.0.2
+      - name: Start building kernel
+        run: |
+             git config --global --add safe.directory /__w/build/build
+             git clone https://github.com/Eagle-Projekt/kernel_xiaomi_sm6225 -b staging kernel
+             cp -af patch kernel/patch
+             cp -af build.sh kernel/ && cd kernel && chmod +x build.sh
+             ./build.sh
