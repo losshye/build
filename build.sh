@@ -91,9 +91,8 @@ COMPILER=${COMP}
 # Build modules. 0 = NO | 1 = YES
 MODULES=0
 
-# Specify linker.
-# 'ld.lld'(default)
-LINKER=ld.lld
+# Default linker to use for builds.
+export LINKER="ld"
 
 # Clean source prior building. 1 is NO(default) | 0 is YES
 INCREMENTAL=0
@@ -168,8 +167,14 @@ WAKTU=$(date +"%F-%S")
 	if [ $COMPILER = "gcc" ]
 	then
 		msger -n "|| Cloning GCC  ||"
-		git clone https://github.com/cyberknight777/gcc-arm64 --depth=1 gcc64
-		git clone https://github.com/cyberknight777/gcc-arm --depth=1  gcc32
+		if [ ! -d "${KDIR}/gcc64" ]; then
+			curl -sL https://github.com/mvaisakh/gcc-arm64/archive/refs/heads/gcc-master.tar.gz | tar -xzf -
+			mv "${KERNEL_DIR}"/gcc-arm64-gcc-master "${KERNEL_DIR}"/gcc64
+		fi
+  		if [ ! -d "${KDIR}/gcc32" ]; then
+			curl -sL https://github.com/mvaisakh/gcc-arm/archive/refs/heads/gcc-master.tar.gz | tar -xzf -
+			mv ${KERNEL_DIR}/gcc-arm-gcc-master ${KERNEL_DIR}/gcc32
+   		fi
 		GCC64_DIR=$KERNEL_DIR/gcc64
 		GCC32_DIR=$KERNEL_DIR/gcc32
 	fi
@@ -181,7 +186,7 @@ WAKTU=$(date +"%F-%S")
 	        bash <(curl -s "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman") -S
 	        cd -
 		# Toolchain Directory defaults to clang-llvm
-		TC_DIR=$KERNEL_DIR/clang-llvm
+		TC_DIR=${KERNEL_DIR}/clang-llvm
 	fi
 
 	msger -n "|| Cloning Anykernel ||"
@@ -204,13 +209,13 @@ exports()
 
 	if [ $COMPILER = "clang" ]
 	then
-		KBUILD_COMPILER_STRING=$("$TC_DIR"/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')
-		PATH=$TC_DIR/bin/:$PATH
-  		export LD_LIBRARY_PATH=$TC_DIR/bin:$LD_LIBRARY_PATH
+		KBUILD_COMPILER_STRING=$("${TC_DIR}"/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')
+		export PATH=${TC_DIR}/bin/:${PATH}
+  		export LD_LIBRARY_PATH=${TC_DIR}/bin:${LD_LIBRARY_PATH}
 	elif [ $COMPILER = "gcc" ]
 	then
-		KBUILD_COMPILER_STRING=$("$GCC64_DIR"/bin/aarch64-elf-gcc --version | head -n 1)
-		PATH=$GCC64_DIR/bin/:$GCC32_DIR/usr/bin/:$PATH
+		KBUILD_COMPILER_STRING=$("${GCC64_DIR}"/bin/aarch64-elf-gcc --version | head -n 1)
+		export PATH="${KERNEL_DIR}"/gcc32/bin:"${KERNEL_DIR}"/gcc64/bin:/usr/bin/:${PATH}
 	fi
 
 	BOT_MSG_URL="https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage"
@@ -299,7 +304,7 @@ build_kernel()
 		MAKE+=(
 			CROSS_COMPILE=aarch64-elf-
 			CROSS_COMPILE_ARM32=arm-eabi-
-			LD="${KDIR}"/gcc64/bin/aarch64-elf-"${LINKER}"
+			LD="${KERNEL_DIR}"/gcc64/bin/aarch64-elf-"${LINKER}"
 			AR=aarch64-elf-ar
 			AS=aarch64-elf-as
 			NM=aarch64-elf-nm
