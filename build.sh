@@ -86,7 +86,7 @@ DEFCONFIG=vendor/fog-perf_defconfig
 
 # Specify compiler.
 # 'clang' or 'gcc'
-COMPILER=clang
+COMPILER=${COMP}
 
 # Build modules. 0 = NO | 1 = YES
 MODULES=0
@@ -167,9 +167,9 @@ WAKTU=$(date +"%F-%S")
 	echo " "
 	if [ $COMPILER = "gcc" ]
 	then
-		msger -n "|| Cloning GCC 9.3.0 baremetal ||"
-		git clone --depth=1 https://github.com/mvaisakh/gcc-arm64.git gcc64
-		git clone --depth=1 https://github.com/arter97/arm32-gcc.git gcc32
+		msger -n "|| Cloning GCC  ||"
+		git clone https://github.com/cyberknight777/gcc-arm64 --depth=1 gcc64
+		git clone https://github.com/cyberknight777/gcc-arm --depth=1  gcc32
 		GCC64_DIR=$KERNEL_DIR/gcc64
 		GCC32_DIR=$KERNEL_DIR/gcc32
 	fi
@@ -182,9 +182,6 @@ WAKTU=$(date +"%F-%S")
 	        cd -
 		# Toolchain Directory defaults to clang-llvm
 		TC_DIR=$KERNEL_DIR/clang-llvm
-  		export LLVM=1
-		export LLVM_IAS=1
-                export LD_LIBRARY_PATH=$TC_DIR/bin:$LD_LIBRARY_PATH
 	fi
 
 	msger -n "|| Cloning Anykernel ||"
@@ -209,6 +206,7 @@ exports()
 	then
 		KBUILD_COMPILER_STRING=$("$TC_DIR"/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')
 		PATH=$TC_DIR/bin/:$PATH
+  		export LD_LIBRARY_PATH=$TC_DIR/bin:$LD_LIBRARY_PATH
 	elif [ $COMPILER = "gcc" ]
 	then
 		KBUILD_COMPILER_STRING=$("$GCC64_DIR"/bin/aarch64-elf-gcc --version | head -n 1)
@@ -293,24 +291,21 @@ build_kernel()
 	if [ $COMPILER = "clang" ]
 	then
 		MAKE+=(
-  			CC=clang \
-			CROSS_COMPILE=aarch64-linux-gnu- \
-			CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
-   			CLANG_TRIPLE=aarch64-linux-gnu- \
-        		HOSTCC=gcc \
-	  		HOSTCXX=g++ ${ClangMoreStrings}
+  			LLVM=1
+			LLVM_IAS=1
      ) 
 	elif [ $COMPILER = "gcc" ]
 	then
 		MAKE+=(
-			CROSS_COMPILE_ARM32=arm-eabi- \
-			CROSS_COMPILE=aarch64-elf- \
-			AR=aarch64-elf-ar \
-			OBJDUMP=aarch64-elf-objdump \
-			STRIP=aarch64-elf-strip \
-			NM=aarch64-elf-nm \
-			OBJCOPY=aarch64-elf-objcopy \
-			LD=aarch64-elf-$LINKER
+			CROSS_COMPILE=aarch64-elf-
+			CROSS_COMPILE_ARM32=arm-eabi-
+			LD="${KDIR}"/gcc64/bin/aarch64-elf-"${LINKER}"
+			AR=aarch64-elf-ar
+			AS=aarch64-elf-as
+			NM=aarch64-elf-nm
+			OBJDUMP=aarch64-elf-objdump
+			OBJCOPY=aarch64-elf-objcopy
+			CC=aarch64-elf-gcc
 		)
 	fi
 
