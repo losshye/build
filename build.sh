@@ -18,10 +18,6 @@
  # limitations under the License.
  #
 
-# Kernel building script
-WORKDIR="$(pwd)"
-KERNEL="$WORKDIR/kernel"
-
 # Bail out if script fails
 set -e
 
@@ -152,6 +148,9 @@ TERM=xterm
 #Check Kernel Version
 KERVER=$(make kernelversion)
 
+#Check kernel branch
+KBRANCH=${BRANCH}
+
 # Set a commit head
 COMMIT_HEAD=$(git log --oneline -1)
 
@@ -266,12 +265,19 @@ build_kernel()
 		make mrproper && rm -rf out
 	fi
 
+	if [ $"KBRANCH" = r-oss ]
+	then
+		tg_post_msg "<b>Stable kernel incoming!</b>"
+    else
+		tg_post_msg "<b>WIP kernel incoming!</b>"
+    fi
+
 	if [ "$KSU" = 1 ]
  	then
 		tg_post_msg "<b>SantuyKernel Build Triggered</b>%0A<b>Docker OS: </b><code>$DISTRO</code>%0A<b>Kernel Version : </b><code>$KERVER</code>%0A<b>Date : </b><code>$(TZ=Asia/Jakarta date)</code>%0A<b>Device : </b><code>$MODEL [$DEVICE]</code>%0A<b>Host Core Count : </b><code>$PROCS</code>%0A<b>Compiler Used : </b><code>$KBUILD_COMPILER_STRING</code>%0A<b>KernelSU: </b><code>$KERNELSU_VERSION</code>%0A<b>Top Commit : </b><code>$COMMIT_HEAD</code>"
 	else
 		tg_post_msg "<b>SantuyKernel Build Triggered</b>%0A<b>Docker OS: </b><code>$DISTRO</code>%0A<b>Kernel Version : </b><code>$KERVER</code>%0A<b>Date : </b><code>$(TZ=Asia/Jakarta date)</code>%0A<b>Device : </b><code>$MODEL [$DEVICE]</code>%0A<b>Host Core Count : </b><code>$PROCS</code>%0A<b>Compiler Used : </b><code>$KBUILD_COMPILER_STRING</code>%0A<b>NON KernelSU:<code>This is not KSU</code>%0A</b><b>Top Commit : </b><code>$COMMIT_HEAD</code>"
-    	fi
+    fi
 
 	make O=out $DEFCONFIG
 	if [ $DEF_REG = 1 ]

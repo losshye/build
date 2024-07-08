@@ -6,12 +6,15 @@ on:
       toolchain:
           description: 'Write toolchain name gcc/clang'
           required: true
+      branch:
+          description: 'Write kernel branch r-oss/wip'
+          required: true
 env:
+  BRANCH: ${{ github.event.inputs.branch }}
   COMP: ${{ github.event.inputs.toolchain }}
   TELEGRAM_TOKEN: ${{ secrets.TG_TOKEN }}
   TELEGRAM_CHAT: ${{ secrets.TG_CHAT }}
   VER: ${{ secrets.K_NAME }}
-  STATUS: ${{ secrets.K_STATUS }}
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
