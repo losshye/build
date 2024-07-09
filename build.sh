@@ -59,7 +59,7 @@ if [ $KSU = 1 ]
 then
    ZIPNAME="SantuyKernel-KSU-$VER"
 else
-    ZIPNAME="SantuyKernel-NONKSU-$VER"
+	ZIPNAME="SantuyKernel-NONKSU-$VER"
 fi
 
 # Build Author
@@ -167,11 +167,11 @@ WAKTU=$(date +"%F-%S")
 	then
 		msger -n "|| Cloning GCC  ||"
 		if [ ! -d "${KDIR}/gcc64" ]; then
-			curl -sL https://github.com/mvaisakh/gcc-arm64/archive/refs/heads/gcc-master.tar.gz | tar -xzf -
+			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/07072024/eva-gcc-arm64-07072024.xz | tar -xvf
 			mv "${KERNEL_DIR}"/gcc-arm64-gcc-master "${KERNEL_DIR}"/gcc64
 		fi
   		if [ ! -d "${KDIR}/gcc32" ]; then
-			curl -sL https://github.com/mvaisakh/gcc-arm/archive/refs/heads/gcc-master.tar.gz | tar -xzf -
+			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/07072024/eva-gcc-arm-07072024.xz | tar -xvf
 			mv ${KERNEL_DIR}/gcc-arm-gcc-master ${KERNEL_DIR}/gcc32
    		fi
 		GCC64_DIR=$KERNEL_DIR/gcc64
