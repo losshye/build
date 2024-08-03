@@ -183,9 +183,11 @@ WAKTU=$(date +"%F-%S")
 	if [ $COMPILER = "clang" ]
 	then
                 mkdir clang-llvm
-	        cd "${KERNEL_DIR}"/clang-llvm || exit 1
-	        bash <(curl -s "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman") -S
-	        cd -
+	        cd clang-llvm
+                curl -LO "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman"
+                chmod +x antman
+                ./antman -S
+                cd ../
 		# Toolchain Directory defaults to clang-llvm
 		TC_DIR=${KERNEL_DIR}/clang-llvm
 	fi
