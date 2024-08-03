@@ -183,11 +183,8 @@ WAKTU=$(date +"%F-%S")
 	if [ $COMPILER = "clang" ]
 	then
                 mkdir clang-llvm
-	        cd clang-llvm
-                curl -LO "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman"
-                chmod +x antman
-                ./antman -S
-                cd ../
+	        wget https://github.com/liliumproject/clang/releases/download/20240802/lilium_clang-20240802.tar.gz
+	        tar -xf lilium_clang-20240802.tar.gz -C clang-llvm
 		# Toolchain Directory defaults to clang-llvm
 		TC_DIR=${KERNEL_DIR}/clang-llvm
 	fi
