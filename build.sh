@@ -179,6 +179,7 @@ WAKTU=$(date +"%F-%S")
 		GCC64_DIR=$KERNEL_DIR/gcc64
 		GCC32_DIR=$KERNEL_DIR/gcc32
 	fi
+ ranlib -D init/built-in.a
 
 	if [ $COMPILER = "clang" ]
 	then
