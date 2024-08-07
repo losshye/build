@@ -88,7 +88,7 @@ COMPILER=${COMP}
 MODULES=0
 
 # Default linker to use for builds.
-export LINKER="ld.lld"
+export LINKER="ld"
 
 # Clean source prior building. 1 is NO(default) | 0 is YES
 INCREMENTAL=0
