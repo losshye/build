@@ -179,7 +179,6 @@ WAKTU=$(date +"%F-%S")
 		GCC64_DIR=$KERNEL_DIR/gcc64
 		GCC32_DIR=$KERNEL_DIR/gcc32
 	fi
- ranlib -D init/built-in.a
 
 	if [ $COMPILER = "clang" ]
 	then
@@ -312,7 +311,6 @@ build_kernel()
 		MAKE+=(
 			CROSS_COMPILE=aarch64-elf-
 			CROSS_COMPILE_ARM32=arm-eabi-
-			LD="${KERNEL_DIR}"/gcc64/bin/aarch64-elf-"${LINKER}"
 			AR=aarch64-elf-ar
 			AS=aarch64-elf-as
 			NM=aarch64-elf-nm
