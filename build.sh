@@ -126,11 +126,11 @@ SILENCE=0
 
 # Verbose build
 # 0 is Quiet(default)) | 1 is verbose | 2 gives reason for rebuilding targets
-VERBOSE=0
+VERBOSE=1
 
 # Debug purpose. Send logs on every successfull builds
 # 1 is YES | 0 is NO(default)
-LOG_DEBUG=0
+LOG_DEBUG=1
 
 ##------------------------------------------------------##
 ##---------Do Not Touch Anything Beyond This------------##
@@ -311,6 +311,7 @@ build_kernel()
 		MAKE+=(
 			CROSS_COMPILE=aarch64-elf-
 			CROSS_COMPILE_ARM32=arm-eabi-
+                        LD="${KERNEL_DIR}"/gcc64/bin/aarch64-elf-"${LINKER}"
 			AR=aarch64-elf-ar
 			AS=aarch64-elf-as
 			NM=aarch64-elf-nm
