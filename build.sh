@@ -315,10 +315,13 @@ build_kernel()
 			AR=aarch64-elf-ar
 			AS=aarch64-elf-as
 			NM=aarch64-elf-nm
+                        STRIP=aarch64-elf-strip
 			OBJDUMP=aarch64-elf-objdump
 			OBJCOPY=aarch64-elf-objcopy
 			CC=aarch64-elf-gcc
-		)
+                        CXX=aarch64-elf-g++
+			CPP=aarch64-elf-cpp
+   )
 	fi
 
 	if [ $SILENCE = "1" ]
