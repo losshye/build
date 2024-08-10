@@ -321,6 +321,14 @@ build_kernel()
 			CC=aarch64-elf-gcc
                         CXX=aarch64-elf-g++
 			CPP=aarch64-elf-cpp
+                        AS=aarch64-elf-as
+                        DWP=aarch64-elf-dwp
+			CXXFLAGS="-O2 -g"
+                        RANLIB=aarch64-elf-ranlib
+                        GPROF=aarch64-elf-gprof
+                        GFORTRAN=aarch64-elf-gfortran
+                        SIZE=aarch64-elf-size
+                        STRINGS=aarch64-elf-strings
    )
 	fi
 
