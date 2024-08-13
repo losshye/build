@@ -64,7 +64,7 @@ fi
 
 # Build Author
 # Take care, it should be a universal and most probably, case-sensitive
-AUTHOR="loosie"
+AUTHOR="whoami"
 HOSTR="stayandroweed"
 
 # Architecture
