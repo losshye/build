@@ -88,7 +88,7 @@ COMPILER=${COMP}
 MODULES=0
 
 # Default linker to use for builds.
-export LINKER="ld"
+export LINKER="ld.lld"
 
 # Clean source prior building. 1 is NO(default) | 0 is YES
 INCREMENTAL=0
@@ -167,13 +167,13 @@ WAKTU=$(date +"%F-%S")
 	then
 		msger -n "|| Cloning GCC  ||"
 		if [ ! -d "${KDIR}/gcc64" ]; then
-			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/04082024/eva-gcc-arm64-04082024.xz
-                        tar -xvf eva-gcc-arm64-04082024.xz
+			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/15082024/eva-gcc-arm64-15082024.xz
+                        tar -xvf eva-gcc-arm64-15082024.xz
 			mv "${KERNEL_DIR}"/gcc-arm64 "${KERNEL_DIR}"/gcc64
 		fi
   		if [ ! -d "${KDIR}/gcc32" ]; then
-			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/04082024/eva-gcc-arm-04082024.xz
-                        tar -xvf eva-gcc-arm-04082024.xz
+			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/15082024/eva-gcc-arm-15082024.xz
+                        tar -xvf eva-gcc-arm-15082024.xz
 			mv ${KERNEL_DIR}/gcc-arm ${KERNEL_DIR}/gcc32
    		fi
 		GCC64_DIR=$KERNEL_DIR/gcc64
