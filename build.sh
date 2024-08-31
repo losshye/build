@@ -185,8 +185,12 @@ WAKTU=$(date +"%F-%S")
                 mkdir clang-llvm
 		wget https://github.com/ZyCromerZ/Clang/releases/download/20.0.0git-20240811-release/Clang-20.0.0git-20240811.tar.gz -O "Clang-20.0.0git-20240811.tar.gz"
                 tar -xf Clang-20.0.0git-20240811.tar.gz -C clang-llvm
-		git clone https://github.com/ZyCromerZ/aarch64-zyc-linux-gnu -b 14 gcc64 --depth=1
-                git clone https://github.com/ZyCromerZ/arm-zyc-linux-gnueabi -b 14 gcc32 --depth=1
+		curl -LO https://github.com/mvaisakh/gcc-build/releases/download/29082024/eva-gcc-arm-29082024.xz
+                        tar -xvf eva-gcc-arm-29082024.xz
+			mv ${KERNEL_DIR}/gcc-arm ${KERNEL_DIR}/gcc32
+                curl -LO https://github.com/mvaisakh/gcc-build/releases/download/29082024/eva-gcc-arm64-29082024.xz
+                        tar -xvf eva-gcc-arm64-29082024.xz
+			mv "${KERNEL_DIR}"/gcc-arm64 "${KERNEL_DIR}"/gcc64
 		GCC64_DIR=$KERNEL_DIR/gcc64
 		GCC32_DIR=$KERNEL_DIR/gcc32
   		for64=aarch64-zyc-linux-gnu
@@ -196,8 +200,7 @@ WAKTU=$(date +"%F-%S")
   		export LLVM=1
 		export LLVM_IAS=1
                 export LD_LIBRARY_PATH=$TC_DIR/bin/:$GCC64_DIR/bin/:$GCC32_DIR/bin/:$LD_LIBRARY_PATH
-		MorePlusPlus="LD=$for64-ld LDGOLD=$for64-ld.gold HOSTLD=${TC_DIR}/bin/ld $MorePlusPlus"
-                MorePlusPlus="LD_COMPAT=${GCC32_DIR}/bin/$for32-ld $MorePlusPlus"
+
 	fi
 
 	msger -n "|| Cloning Anykernel ||"
@@ -315,11 +318,11 @@ build_kernel()
 	then
 		MAKE+=(
   			CC=clang
-			CROSS_COMPILE=aarch64-zyc-linux-gnu-
-			CROSS_COMPILE_ARM32=arm-zyc-linux-gnueabi-
+			CROSS_COMPILE=aarch64-elf-
+			CROSS_COMPILE_ARM32=arm-eabi-
+                        LD="${KERNEL_DIR}"/gcc64/bin/aarch64-elf-"${LINKER}"
    			CLANG_TRIPLE=aarch64-linux-gnu-
         		HOSTCC=gcc
-	  		HOSTCXX=g++ ${MorePlusPlus}
      )
 	elif [ $COMPILER = "gcc" ]
 	then
