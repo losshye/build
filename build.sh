@@ -183,10 +183,21 @@ WAKTU=$(date +"%F-%S")
 	if [ $COMPILER = "clang" ]
 	then
                 mkdir clang-llvm
-	        wget https://github.com/liliumproject/clang/releases/download/20240802/lilium_clang-20240802.tar.gz
-	        tar -xf lilium_clang-20240802.tar.gz -C clang-llvm
+		wget https://github.com/ZyCromerZ/Clang/releases/download/20.0.0git-20240811-release/Clang-20.0.0git-20240811.tar.gz -O "Clang-20.0.0git-20240811.tar.gz"
+                tar -xf Clang-20.0.0git-20240811.tar.gz -C clang-llvm
+		git clone https://github.com/ZyCromerZ/aarch64-zyc-linux-gnu -b 14 gcc64 --depth=1
+                git clone https://github.com/ZyCromerZ/arm-zyc-linux-gnueabi -b 14 gcc32 --depth=1
+		GCC64_DIR=$KERNEL_DIR/gcc64
+		GCC32_DIR=$KERNEL_DIR/gcc32
+  		for64=aarch64-zyc-linux-gnu
+  		for32=arm-zyc-linux-gnueabi
 		# Toolchain Directory defaults to clang-llvm
-		TC_DIR=${KERNEL_DIR}/clang-llvm
+		TC_DIR=$KERNEL_DIR/clang-llvm
+  		export LLVM=1
+		export LLVM_IAS=1
+                export LD_LIBRARY_PATH=$TC_DIR/bin/:$GCC64_DIR/bin/:$GCC32_DIR/bin/:$LD_LIBRARY_PATH
+		MorePlusPlus="LD=$for64-ld LDGOLD=$for64-ld.gold HOSTLD=${TC_DIR}/bin/ld $MorePlusPlus"
+                MorePlusPlus="LD_COMPAT=${GCC32_DIR}/bin/$for32-ld $MorePlusPlus"
 	fi
 
 	msger -n "|| Cloning Anykernel ||"
@@ -303,9 +314,13 @@ build_kernel()
 	if [ $COMPILER = "clang" ]
 	then
 		MAKE+=(
-  			LLVM=1
-			LLVM_IAS=1
-     ) 
+  			CC=clang
+			CROSS_COMPILE=aarch64-zyc-linux-gnu-
+			CROSS_COMPILE_ARM32=arm-zyc-linux-gnueabi-
+   			CLANG_TRIPLE=aarch64-linux-gnu-
+        		HOSTCC=gcc
+	  		HOSTCXX=g++ ${MorePlusPlus}
+     )
 	elif [ $COMPILER = "gcc" ]
 	then
 		MAKE+=(
