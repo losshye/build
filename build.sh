@@ -198,7 +198,6 @@ WAKTU=$(date +"%F-%S")
 		# Toolchain Directory defaults to clang-llvm
 		TC_DIR=$KERNEL_DIR/clang-llvm
   		export LLVM=1
-		export LLVM_IAS=1
                 export LD_LIBRARY_PATH=$TC_DIR/bin/:$GCC64_DIR/bin/:$GCC32_DIR/bin/:$LD_LIBRARY_PATH
 
 	fi
