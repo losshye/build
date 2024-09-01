@@ -318,12 +318,6 @@ build_kernel()
   			CC=clang
 			CROSS_COMPILE=aarch64-elf-
 			CROSS_COMPILE_ARM32=arm-eabi-
-                        AR=aarch64-elf-ar
-			AS=aarch64-elf-as
-			NM=aarch64-elf-nm
-                        STRIP=aarch64-elf-strip
-			OBJDUMP=aarch64-elf-objdump
-			OBJCOPY=aarch64-elf-objcopy
                         LD="${KERNEL_DIR}"/gcc64/bin/aarch64-elf-"${LINKER}"
    			CLANG_TRIPLE=aarch64-linux-gnu-
         		HOSTCC=gcc
