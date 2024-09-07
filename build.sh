@@ -167,13 +167,13 @@ WAKTU=$(date +"%F-%S")
 	then
 		msger -n "|| Cloning GCC  ||"
 		if [ ! -d "${KDIR}/gcc64" ]; then
-			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/01092024/eva-gcc-arm64-01092024.xz
-                        tar -xvf eva-gcc-arm64-01092024.xz
+			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/05092024/eva-gcc-arm64-05092024.xz
+                        tar -xvf eva-gcc-arm64-05092024.xz
 			mv "${KERNEL_DIR}"/gcc-arm64 "${KERNEL_DIR}"/gcc64
 		fi
   		if [ ! -d "${KDIR}/gcc32" ]; then
-			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/01092024/eva-gcc-arm-01092024.xz
-                        tar -xvf eva-gcc-arm-01092024.xz
+			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/05092024/eva-gcc-arm-05092024.xz
+                        tar -xvf eva-gcc-arm-05092024.xz
 			mv ${KERNEL_DIR}/gcc-arm ${KERNEL_DIR}/gcc32
    		fi
 		GCC64_DIR=$KERNEL_DIR/gcc64
