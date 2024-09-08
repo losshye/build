@@ -1,4 +1,5 @@
-name: Kernel Staging
+name: Kernel CLANG
+
 
 on:
   workflow_dispatch:
