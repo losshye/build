@@ -1,4 +1,4 @@
-name: Kernel Staging
+name: Kernel GCC
 
 on:
   workflow_dispatch:
