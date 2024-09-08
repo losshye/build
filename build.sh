@@ -196,8 +196,6 @@ WAKTU=$(date +"%F-%S")
   		export LLVM=1
 		export LLVM_IAS=1
                 export LD_LIBRARY_PATH=$TC_DIR/bin/:$GCC64_DIR/bin/:$GCC32_DIR/bin/:$LD_LIBRARY_PATH
-		MorePlusPlus="LD=$for64-ld LDGOLD=$for64-ld.gold HOSTLD=${TC_DIR}/bin/ld $MorePlusPlus"
-                MorePlusPlus="LD_COMPAT=${GCC32_DIR}/bin/$for32-ld $MorePlusPlus"
 	fi
 
 	msger -n "|| Cloning Anykernel ||"
@@ -319,7 +317,8 @@ build_kernel()
 			CROSS_COMPILE_ARM32=arm-zyc-linux-gnueabi- \
    			CLANG_TRIPLE=aarch64-linux-gnu- \
         		HOSTCC=gcc \
-	  		HOSTCXX=g++ ${MorePlusPlus}
+	                LD="${KERNEL_DIR}"/gcc64/bin/aarch64-zyc-linux-gnu-"${LINKER}" \
+	  		HOSTCXX=g++
      ) 
 	elif [ $COMPILER = "gcc" ]
 	then
