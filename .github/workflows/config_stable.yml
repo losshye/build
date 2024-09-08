@@ -1,4 +1,4 @@
-name: Kernel Stable
+name: Kernel Staging
 
 on:
   workflow_dispatch:
@@ -19,7 +19,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     container:
       image: ghcr.io/neutron-projects/docker-image:arch-neutron
     steps:
@@ -27,6 +27,6 @@ jobs:
       - name: Start building kernel
         run: |
              git config --global --add safe.directory /__w/build/build
-             git clone https://github.com/Dwyor-tmx/sm6225_xiaomi_fog -b fog-r-oss-staging kernel
-             cp -af build.sh kernel/ && cd kernel && chmod +x build.sh
+             git clone --depth=1 --single-branch https://github.com/Dwyor-tmx/sm6225_xiaomi_fog -b clang kernel-wip
+             cp -af build.sh kernel-wip/ && cd kernel-wip && chmod +x build.sh
              ./build.sh
