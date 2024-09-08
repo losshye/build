@@ -310,6 +310,9 @@ build_kernel()
         fi
 
 	BUILD_START=$(date +"%s")
+        make clean
+	make mrproper
+	make clean
 
 		if [ $COMPILER = "clang" ]
 	then
