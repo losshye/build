@@ -170,6 +170,7 @@ WAKTU=$(date +"%F-%S")
 			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/12092024/eva-gcc-arm64-12092024.xz
                         tar -xvf eva-gcc-arm64-12092024.xz
 			mv "${KERNEL_DIR}"/gcc-arm64 "${KERNEL_DIR}"/gcc64
+                        sudo pacman -Syu ccache
 		fi
   		if [ ! -d "${KDIR}/gcc32" ]; then
 			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/12092024/eva-gcc-arm-12092024.xz
@@ -330,8 +331,8 @@ build_kernel()
 	elif [ $COMPILER = "gcc" ]
 	then
 		MAKE+=(
-			CROSS_COMPILE=aarch64-elf-
-			CROSS_COMPILE_ARM32=arm-eabi-
+			CROSS_COMPILE="ccache aarch64-elf-"
+			CROSS_COMPILE_ARM32="ccache arm-eabi-"
                         LD="${KERNEL_DIR}"/gcc64/bin/aarch64-elf-"${LINKER}"
 			AR=aarch64-elf-ar
 			AS=aarch64-elf-as
@@ -339,8 +340,8 @@ build_kernel()
                         STRIP=aarch64-elf-strip
 			OBJDUMP=aarch64-elf-objdump
 			OBJCOPY=aarch64-elf-objcopy
-			CC=aarch64-elf-gcc
-                        CXX=aarch64-elf-g++
+			CC="ccache aarch64-elf-gcc"
+                        CXX="ccache aarch64-elf-g++"
 			CPP=aarch64-elf-cpp
                         AS=aarch64-elf-as
                         DWP=aarch64-elf-dwp
