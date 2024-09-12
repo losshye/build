@@ -170,7 +170,7 @@ WAKTU=$(date +"%F-%S")
 			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/12092024/eva-gcc-arm64-12092024.xz
                         tar -xvf eva-gcc-arm64-12092024.xz
 			mv "${KERNEL_DIR}"/gcc-arm64 "${KERNEL_DIR}"/gcc64
-                        sudo pacman -Syu ccache
+                        sudo pacman -S --noconfirm ccache
 			ccache --max-size=10G
                         ccache --set-config=compression=true
 			export CCACHE_SIZE=10G
