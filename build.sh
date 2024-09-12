@@ -337,27 +337,27 @@ build_kernel()
 	elif [ $COMPILER = "gcc" ]
 	then
 		MAKE+=(
-			CROSS_COMPILE="ccache aarch64-elf-"
-			CROSS_COMPILE_ARM32="ccache arm-eabi-"
-                        LD="${KERNEL_DIR}"/gcc64/bin/aarch64-elf-"${LINKER}"
-			AR=aarch64-elf-ar
-			AS=aarch64-elf-as
-			NM=aarch64-elf-nm
-                        STRIP=aarch64-elf-strip
-			OBJDUMP=aarch64-elf-objdump
-			OBJCOPY=aarch64-elf-objcopy
-			CC="ccache aarch64-elf-gcc"
-                        CXX="ccache aarch64-elf-g++"
-			CPP=aarch64-elf-cpp
-                        AS=aarch64-elf-as
-                        DWP=aarch64-elf-dwp
-			CXXFLAGS="-O2 -g"
-                        RANLIB=aarch64-elf-ranlib
-                        GPROF=aarch64-elf-gprof
-                        GFORTRAN=aarch64-elf-gfortran
-                        SIZE=aarch64-elf-size
-                        STRINGS=aarch64-elf-strings
-   )
+    CROSS_COMPILE=aarch64-elf-
+    CROSS_COMPILE_ARM32=arm-eabi-
+    LD="${KERNEL_DIR}"/gcc64/bin/aarch64-elf-"${LINKER}"
+    AR=aarch64-elf-ar
+    AS="ccache aarch64-elf-as"  # If you want to cache assembler invocations
+    NM=aarch64-elf-nm
+    STRIP=aarch64-elf-strip
+    OBJDUMP=aarch64-elf-objdump
+    OBJCOPY=aarch64-elf-objcopy
+    CC="ccache aarch64-elf-gcc"
+    CXX="ccache aarch64-elf-g++"
+    CPP="ccache aarch64-elf-cpp"
+    AS="ccache aarch64-elf-as"  # Included twice; might be redundant
+    DWP=aarch64-elf-dwp
+    CXXFLAGS="-O2 -g"
+    RANLIB=aarch64-elf-ranlib
+    GPROF=aarch64-elf-gprof
+    GFORTRAN="ccache aarch64-elf-gfortran"  # Cache Fortran compiler too
+    SIZE=aarch64-elf-size
+    STRINGS=aarch64-elf-strings
+)
 	fi
 
 	if [ $SILENCE = "1" ]
