@@ -173,6 +173,9 @@ WAKTU=$(date +"%F-%S")
                         sudo pacman -Syu ccache
 			ccache --max-size=10G
                         ccache --set-config=compression=true
+			export CCACHE_SIZE=10G
+   export USE_CCACHE=1
+   export CCACHE_COMPRESS=1
  
 		fi
   		if [ ! -d "${KDIR}/gcc32" ]; then
