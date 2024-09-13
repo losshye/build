@@ -57,9 +57,9 @@ fi
 # The name of the Kernel, to name the ZIP
 if [ $KSU = 1 ]
 then
-   ZIPNAME="NebulaKernel-KSU-$VER"
+   ZIPNAME="HiganbanaKernel-KSU-$VER"
 else
-	ZIPNAME="NebulaKernel-NONKSU-$VER"
+	ZIPNAME="HiganbanaKernel-NONKSU-$VER"
 fi
 
 # Build Author
@@ -108,9 +108,10 @@ BUILD_DTBO=0
 
 # Sign the zipfile
 # 1 is YES | 0 is NO
-SIGN=0
+SIGN=1
 if [ $SIGN = 1 ]
 then
+sudo pacman -Syu --noconfirm jdk-openjdk
 	#Check for java
 	if ! hash java 2>/dev/null 2>&1; then
 		SIGN=0
