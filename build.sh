@@ -105,6 +105,7 @@ FILES=Image.gz
 # Build dtbo.img (select this only if your source has support to building dtbo.img)
 # 1 is YES | 0 is NO(default)
 BUILD_DTBO=1
+pacman -Syu --noconfirm python-pip
 
 # Sign the zipfile
 # 1 is YES | 0 is NO
@@ -389,7 +390,7 @@ build_kernel()
 			then
 				msger -n "|| Building DTBO ||"
 				tg_post_msg "<code>Building DTBO..</code>"
-				python2 "$KERNEL_DIR/scripts/ufdt/libufdt/utils/src/mkdtboimg.py" \
+				python3 "$KERNEL_DIR/scripts/ufdt/libufdt/utils/src/mkdtboimg.py" \
 					create "$KERNEL_DIR/out/arch/arm64/boot/dtbo.img" --page_size=4096 "$KERNEL_DIR/out/arch/arm64/boot/dts/$DTBO_PATH"
 			fi
 				gen_zip
