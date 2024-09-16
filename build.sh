@@ -99,13 +99,15 @@ PTTG=1
 # Generate a full DEFCONFIG prior building. 1 is YES | 0 is NO(default)
 DEF_REG=0
 
+# For evagcc realese
+GCCVER=15092024
+
 # Files/artifacts
 FILES=Image.gz
 
 # Build dtbo.img (select this only if your source has support to building dtbo.img)
 # 1 is YES | 0 is NO(default)
 BUILD_DTBO=0
-pacman -Syu --noconfirm python-pip
 
 # Sign the zipfile
 # 1 is YES | 0 is NO
@@ -169,24 +171,23 @@ WAKTU=$(date +"%F-%S")
 	then
 		msger -n "|| Cloning GCC  ||"
 		if [ ! -d "${KDIR}/gcc64" ]; then
-			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/12092024/eva-gcc-arm64-12092024.xz
-                        tar -xvf eva-gcc-arm64-12092024.xz
+			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/"${GCCVER}"/eva-gcc-arm64-"${GCCVER}".xz
+                        tar -xvf eva-gcc-arm64-"${GCCVER}".xz
 			mv "${KERNEL_DIR}"/gcc-arm64 "${KERNEL_DIR}"/gcc64
-                        sudo pacman -Syu --noconfirm ccache
-			ccache --max-size=10G
-                        ccache --set-config=compression=true
-			export CCACHE_SIZE=10G
-   export USE_CCACHE=1
-   export CCACHE_COMPRESS=1
- 
 		fi
   		if [ ! -d "${KDIR}/gcc32" ]; then
-			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/12092024/eva-gcc-arm-12092024.xz
-                        tar -xvf eva-gcc-arm-12092024.xz
+			curl -LO https://github.com/mvaisakh/gcc-build/releases/download/"${GCCVER}"/eva-gcc-arm-"${GCCVER}".xz
+                        tar -xvf eva-gcc-arm-"${GCCVER}".xz
 			mv ${KERNEL_DIR}/gcc-arm ${KERNEL_DIR}/gcc32
    		fi
 		GCC64_DIR=$KERNEL_DIR/gcc64
 		GCC32_DIR=$KERNEL_DIR/gcc32
+                sudo pacman -Syu --noconfirm ccache
+                ccache --max-size=10G
+                ccache --set-config=compression=true
+		export CCACHE_SIZE=10G
+                export USE_CCACHE=1
+                export CCACHE_COMPRESS=1
 	fi
 
 	if [ $COMPILER = "clang" ]
@@ -409,7 +410,7 @@ gen_zip()
 {
 	msger -n "|| Zipping into a flashable zip ||"
 	mv "$KERNEL_DIR"/out/arch/arm64/boot/$FILES AnyKernel3/$FILES
-	if [ $BUILD_DTBO = 0 ]
+	if [ $BUILD_DTBO = 1 ]
 	then
 		mv "$KERNEL_DIR"/out/arch/arm64/boot/dtbo.img AnyKernel3/dtbo.img
 	fi
