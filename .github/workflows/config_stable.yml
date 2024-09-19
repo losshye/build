@@ -1,15 +1,15 @@
 name: Kernel CLANG
 
-
 on:
   workflow_dispatch:
     inputs:
       toolchain:
-          description: 'Write toolchain name gcc/clang'
-          required: true
+        description: 'Write toolchain name gcc/clang'
+        required: true
       branch:
-          description: 'Write kernel branch r-oss/wip'
-          required: true
+        description: 'Write kernel branch r-oss/wip'
+        required: true
+
 env:
   BRANCH: ${{ github.event.inputs.branch }}
   COMP: ${{ github.event.inputs.toolchain }}
@@ -17,18 +17,19 @@ env:
   TELEGRAM_CHAT: ${{ secrets.TG_CHAT }}
   VER: ${{ secrets.K_NAME }}
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
-  
+
 jobs:
   compile:
-   docker:
+    docker:
       - image: wizardprjkt/build:kernel
-   steps:
+    steps:
       - run:
           command: |
             git clone --depth=1 --recursive https://github.com/losshye/sm6225_xiaomi_fog -b gcc3 kernel && cd kernel
             export TZ=Asia/Gaza
             bash build.sh
-          no_output_timeout : 1h
+          no_output_timeout: 1h
+
 workflows:
   version: 2.1
   cooking:
