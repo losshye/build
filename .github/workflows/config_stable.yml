@@ -17,8 +17,7 @@ env:
   TELEGRAM_CHAT: ${{ secrets.TG_CHAT }}
   VER: ${{ secrets.K_NAME }}
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
-version: 2.1
+  
 jobs:
   compile:
    docker:
