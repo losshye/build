@@ -19,9 +19,9 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: 
     container:
-      image: ghcr.io/neutron-projects/docker-image:arch-neutron
+      image:  wizardprjkt/build:kernel
     steps:
       - uses: actions/checkout@v3.0.2
       - name: Start building kernel
