@@ -19,7 +19,7 @@ env:
 
 jobs:
   build:
-    runs-on: 
+    runs-on: unbuntu-latest
     container:
       image:  wizardprjkt/build:kernel
     steps:
