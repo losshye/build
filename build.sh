@@ -20,7 +20,8 @@
 
 # Bail out if script fails
 set -e
-
+export DISTRO=$(source /etc/os-release && echo "${NAME}")
+echo $DISTRO
 # Function to show an informational message
 msger()
 {
