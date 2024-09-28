@@ -64,8 +64,8 @@ fi
 
 # Build Author
 # Take care, it should be a universal and most probably, case-sensitive
-AUTHOR="whoami"
-HOSTR="stayandroweed"
+AUTHOR="losshye"
+HOSTR="#EWPRJKT"
 
 # Architecture
 ARCH=arm64
@@ -100,7 +100,7 @@ PTTG=1
 DEF_REG=0
 
 # For evagcc realese
-GCCVER=19092024
+GCCVER=22092024
 
 # Files/artifacts
 FILES=Image.gz
