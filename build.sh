@@ -20,8 +20,6 @@
 
 # Bail out if script fails
 set -e
-export DISTRO=$(source /etc/os-release && echo "${NAME}")
-echo $DISTRO
 # Function to show an informational message
 msger()
 {
@@ -115,7 +113,7 @@ BUILD_DTBO=0
 SIGN=1
 if [ $SIGN = 1 ]
 then
-sudo apt install default-jre
+sudo dnf install -y java-17-openjdk
 	#Check for java
 	if ! hash java 2>/dev/null 2>&1; then
 		SIGN=0
@@ -184,7 +182,7 @@ WAKTU=$(date +"%F-%S")
    		fi
 		GCC64_DIR=$KERNEL_DIR/gcc64
 		GCC32_DIR=$KERNEL_DIR/gcc32
-                sudo apt install ccache
+                sudo dnf install -y ccache
                 ccache --max-size=10G
                 ccache --set-config=compression=true
 		export CCACHE_SIZE=10G
@@ -445,7 +443,7 @@ gen_zip()
 clone
 exports
 build_kernel
-
+ccache -s
 if [ $LOG_DEBUG = "1" ]
 then
 	tg_post_build "error.log" "$TELEGRAM_CHAT" "Debug Mode Logs"
