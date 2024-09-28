@@ -114,7 +114,7 @@ BUILD_DTBO=0
 SIGN=1
 if [ $SIGN = 1 ]
 then
-sudo pacman -Syu --noconfirm jdk-openjdk
+sudo apt install default-jre
 	#Check for java
 	if ! hash java 2>/dev/null 2>&1; then
 		SIGN=0
@@ -146,6 +146,7 @@ LOG_DEBUG=1
 
 # shellcheck source=/etc/os-release
 export DISTRO=$(source /etc/os-release && echo "${NAME}")
+echo $DISTRO
 export KBUILD_BUILD_HOST=$(uname -a | awk '{print $2}')
 TERM=xterm
 
@@ -182,7 +183,7 @@ WAKTU=$(date +"%F-%S")
    		fi
 		GCC64_DIR=$KERNEL_DIR/gcc64
 		GCC32_DIR=$KERNEL_DIR/gcc32
-                sudo pacman -Syu --noconfirm ccache
+                sudo apt install ccache
                 ccache --max-size=10G
                 ccache --set-config=compression=true
 		export CCACHE_SIZE=10G
