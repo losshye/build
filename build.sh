@@ -87,7 +87,7 @@ COMPILER=${COMP}
 MODULES=0
 
 # Default linker to use for builds.
-export LINKER="ld.lld"
+export LINKER="ld"
 
 # Clean source prior building. 1 is NO(default) | 0 is YES
 INCREMENTAL=0
@@ -107,7 +107,7 @@ FILES=Image.gz
 # Build dtbo.img (select this only if your source has support to building dtbo.img)
 # 1 is YES | 0 is NO(default)
 BUILD_DTBO=0
-sudo dnf install -y python3
+sudo dnf install -y python
 
 # Sign the zipfile
 # 1 is YES | 0 is NO
