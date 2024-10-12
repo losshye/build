@@ -56,15 +56,15 @@ fi
 # The name of the Kernel, to name the ZIP
 if [ $KSU = 1 ]
 then
-   ZIPNAME="HiganbanaKernel-KSU-$VER"
+   ZIPNAME="jawa-KSU-$VER"
 else
-	ZIPNAME="HiganbanaKernel-NONKSU-$VER"
+	ZIPNAME="jawa-NONKSU-$VER"
 fi
 
 # Build Author
 # Take care, it should be a universal and most probably, case-sensitive
 AUTHOR="losshye"
-HOSTR="#EWPRJKT"
+HOSTR="#ꦄꦏꦸꦱꦸꦏꦏꦩꦸ"
 
 # Architecture
 ARCH=arm64
@@ -184,9 +184,9 @@ WAKTU=$(date +"%F-%S")
 		GCC64_DIR=$KERNEL_DIR/gcc64
 		GCC32_DIR=$KERNEL_DIR/gcc32
                 sudo dnf install -y ccache
-                ccache --max-size=10G
+                ccache --max-size=20G
                 ccache --set-config=compression=true
-		export CCACHE_SIZE=10G
+		export CCACHE_SIZE=20G
                 export USE_CCACHE=1
                 export CCACHE_COMPRESS=1
 	fi
