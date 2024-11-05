@@ -45,7 +45,7 @@ KERNEL_DIR="$(pwd)"
 BASEDIR="$(basename "$KERNEL_DIR")"
 
 # PATCH KERNELSU & RELEASE VERSION
-KSU=1
+KSU=0
 if [ $KSU = 1 ]
 then
 	curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
@@ -312,7 +312,7 @@ build_kernel()
 						This is an auto-generated commit"
 	fi
 
-        if [ $KSU = 0 ]
+        if [ $KSU = 1 ]
 	then
            for patch_file in $KERNEL_DIR/patchs/KernelSU.patch
 	do
