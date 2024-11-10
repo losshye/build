@@ -1,0 +1,31 @@
+name: Kernel Rebuild
+
+on:
+  workflow_dispatch:
+    inputs:
+      toolchain:
+          description: 'Write toolchain name gcc/clang'
+          required: true
+      branch:
+          description: 'Write kernel branch r-oss/wip'
+          required: true
+env:
+  BRANCH: ${{ github.event.inputs.branch }}
+  COMP: ${{ github.event.inputs.toolchain }}
+  TELEGRAM_TOKEN: ${{ secrets.TG_TOKEN }}
+  TELEGRAM_CHAT: ${{ secrets.TG_CHAT }}
+  VER: ${{ secrets.K_NAME }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+jobs:
+  build:
+    runs-on: self-hosted
+    container:
+      image:  wizardprjkt/build:kernel
+    steps:
+      - uses: actions/checkout@v3.0.2
+      - name: Start building kernel
+        run: |
+             git config --global --add safe.directory /__w/build/build
+             cp -af rebuild.sh kernel-wip/ && cd kernel-wip && chmod +x rebuild.sh
+             ./rebuild.sh
