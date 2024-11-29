@@ -56,15 +56,15 @@ fi
 # The name of the Kernel, to name the ZIP
 if [ $KSU = 1 ]
 then
-   ZIPNAME="jawa-KSU-$VER"
+   ZIPNAME="Nebula-KSU-$VER"
 else
-	ZIPNAME="jawa-NONKSU-$VER"
+	ZIPNAME="Nebula-NONKSU-$VER"
 fi
 
 # Build Author
 # Take care, it should be a universal and most probably, case-sensitive
 AUTHOR="losshye"
-HOSTR="#ꦄꦏꦸꦱꦸꦏꦏꦩꦸ"
+HOSTR="#life"
 
 # Architecture
 ARCH=arm64
