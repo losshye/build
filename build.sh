@@ -56,9 +56,9 @@ fi
 # The name of the Kernel, to name the ZIP
 if [ $KSU = 1 ]
 then
-   ZIPNAME="Nebula-KSU-$VER"
+   ZIPNAME="Nova-KSU-$VER"
 else
-	ZIPNAME="Nebula-NONKSU-$VER"
+	ZIPNAME="Nova-KSU-$VER"
 fi
 
 # Build Author
