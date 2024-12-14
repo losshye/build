@@ -17,6 +17,8 @@
  # See the License for the specific language governing permissions and
  # limitations under the License.
  #
+make clean
+make mrproper
 
 # Bail out if script fails
 set -e
