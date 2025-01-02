@@ -390,12 +390,12 @@ build_kernel()
 		if [ -f "$KERNEL_DIR"/out/arch/arm64/boot/$FILES ]
 		then
 			msger -n "|| Kernel successfully compiled ||"
-			if [ $BUILD_DTBO = 0 ]
+			if [ $BUILD_DTBO = 1 ]
 			then
 				msger -n "|| Building DTBO ||"
 				tg_post_msg "<code>Building DTBO..</code>"
 				python3 "$KERNEL_DIR/scripts/ufdt/libufdt/utils/src/mkdtboimg.py" \
-					create "$KERNEL_DIR/out/arch/arm64/boot/dtbo.img" --page_size=4096 "$KERNEL_DIR/out/arch/arm64/boot/$DTBO_PATH"
+					create "$KERNEL_DIR/out/arch/arm64/boot/dtbo.img" --page_size=4096 "$KERNEL_DIR/out/arch/arm64/boot/dts/$DTBO_PATH"
 			fi
 				gen_zip
 			else
