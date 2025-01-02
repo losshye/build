@@ -390,7 +390,7 @@ build_kernel()
 		if [ -f "$KERNEL_DIR"/out/arch/arm64/boot/$FILES ]
 		then
 			msger -n "|| Kernel successfully compiled ||"
-			if [ $BUILD_DTBO = 1 ]
+			if [ $BUILD_DTBO = 0 ]
 			then
 				msger -n "|| Building DTBO ||"
 				tg_post_msg "<code>Building DTBO..</code>"
