@@ -27,6 +27,6 @@ jobs:
       - name: Start building kernel
         run: |
              git config --global --add safe.directory /__w/build/build
-             git clone --depth=1 --single-branch https://github.com/Dwyor-tmx/sm6225_xiaomi_fog -b temp kernel-wip
+             git clone --depth=1 --single-branch https://github.com/Dwyor-tmx/sm6225_xiaomi_fog -b sched kernel-wip
              cp -af build.sh kernel-wip/ && cd kernel-wip && chmod +x build.sh
              ./build.sh
