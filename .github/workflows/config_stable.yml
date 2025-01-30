@@ -1,15 +1,14 @@
-name: Kernel CLANG
+name: Kernel GCC
 
 on:
   workflow_dispatch:
     inputs:
       toolchain:
-        description: 'Write toolchain name gcc/clang'
-        required: true
+          description: 'Write toolchain name gcc/clang'
+          required: true
       branch:
-        description: 'Write kernel branch r-oss/wip'
-        required: true
-
+          description: 'Write kernel branch r-oss/wip'
+          required: true
 env:
   BRANCH: ${{ github.event.inputs.branch }}
   COMP: ${{ github.event.inputs.toolchain }}
@@ -19,19 +18,15 @@ env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
-  compile:
-    docker:
-      - image: wizardprjkt/build:kernel
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image:  wizardprjkt/build:kernel
     steps:
-      - run:
-          command: |
-            git clone --depth=1 --recursive https://github.com/losshye/sm6225_xiaomi_fog -b gcc3 kernel && cd kernel
-            export TZ=Asia/Gaza
-            bash build.sh
-          no_output_timeout: 1h
-
-workflows:
-  version: 2.1
-  cooking:
-    jobs:
-      - compile
+      - uses: actions/checkout@v3.0.2
+      - name: Start building kernel
+        run: |
+             git config --global --add safe.directory /__w/build/build
+             git clone --depth=1 --single-branch https://github.com/arsha-oss/android_kernel_xiaomi_sm6225 -b master kernel-wip
+             cp -af build.sh kernel-wip/ && cd kernel-wip && chmod +x build.sh
+             ./build.sh
