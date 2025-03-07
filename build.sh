@@ -56,9 +56,9 @@ fi
 # The name of the Kernel, to name the ZIP
 if [ $KSU = 1 ]
 then
-   ZIPNAME="Nova-KSU-$VER"
+   ZIPNAME="xve-KSU-$VER"
 else
-	ZIPNAME="Nova-KSU-$VER"
+	ZIPNAME="xve-KSU-$VER"
 fi
 
 # Build Author
