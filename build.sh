@@ -285,7 +285,6 @@ build_kernel()
 	if [ $INCREMENTAL = 0 ]
 	then
 		msger -n "|| Cleaning Sources ||"
-		make mrproper && rm -rf out
 	fi
 
 	if [ $"KBRANCH" = r-oss ]
