@@ -99,7 +99,7 @@ PTTG=1
 DEF_REG=0
 
 # For evagcc realese
-GCCVER=22052025
+GCCVER=17072025
 
 # Files/artifacts
 FILES=Image.gz
