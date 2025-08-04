@@ -63,8 +63,8 @@ fi
 
 # Build Author
 # Take care, it should be a universal and most probably, case-sensitive
-AUTHOR="unknown"
-HOSTR="nowhere"
+AUTHOR="cantikk"
+HOSTR="imutt"
 
 # Architecture
 ARCH=arm64
